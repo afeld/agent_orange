@@ -123,6 +123,33 @@ describe AgentOrange::UserAgent do
       ua.device.engine.browser.name.should == nil
       ua.device.engine.browser.version.to_s.should == ""
     end
-    
+  end
+
+  describe "Other bots" do
+    detect "Somebot/1.0 (+http://foo.com)" do |ua|
+      ua.device.type.should == :bot
+      ua.device.name.should == "Bot"
+      ua.device.version.should == nil
+      ua.device.bot.should == true
+      ua.is_mobile?.should == false
+      ua.is_computer?.should == false
+      ua.is_bot?.should == true
+
+      ua.device.engine.browser.name.should == nil
+      ua.device.engine.browser.version.to_s.should == ""
+    end
+
+    detect "Pinterest/0.1 +http://pinterest.com/" do |ua|
+      ua.device.type.should == :bot
+      ua.device.name.should == "Bot"
+      ua.device.version.should == nil
+      ua.device.bot.should == true
+      ua.is_mobile?.should == false
+      ua.is_computer?.should == false
+      ua.is_bot?.should == true
+
+      ua.device.engine.browser.name.should == nil
+      ua.device.engine.browser.version.to_s.should == ""
+    end
   end
 end
